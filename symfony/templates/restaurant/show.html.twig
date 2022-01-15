@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Restaurant{% endblock %}
+
+{% block body %}
+    <h1>Restaurant</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ restaurant.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ restaurant.nom }}</td>
+            </tr>
+            <tr>
+                <th>Adress</th>
+                <td>{{ restaurant.adress }}</td>
+            </tr>
+            <tr>
+                <th>Num_tel</th>
+                <td>{{ restaurant.numTel }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+
+    <h1>produit proposé</h1>
+    {% for produit in produits  %}
+        
+        <p>{{ produit.nom }}</p>
+        <p>{{ produit.prix }}</p>
+        <p>{{ produit.description }}</p>
+
+        <a href="{{ path('add', {'id': restaurant.id}),'value':1 }}">Ajouter au panier</a>
+        {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('produit_edit', {'id': produit.id}) }}"class="btn btn-primary "> EDIT</a>
+        {% endif %}
+    {% endfor %}
+
+    
+
+    <a href="{{ path('restaurant_index') }}">back to list</a>
+    
+    {% if remplis == 1 %}
+            <a href="{{ path('panier', {'id': restaurant.id}) }}">Valider votre commmande >></a>
+    {% endif %}
+    
+
+    {% if is_granted('ROLE_ADMIN') %}
+                 <a href="{{ path('produit_new', {'id': restaurant.id}) }} "class="btn btn-dark">Ajouter un produit</a>
+      
+    {% endif %}
+{% endblock %}

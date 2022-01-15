@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Restaurant index{% endblock %}
+
+{% block body %}
+    <h1>Restaurant index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Adress</th>
+                <th>Num_tel</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for restaurant in restaurants %}
+            <tr>
+                <td>{{ restaurant.id }}</td>
+                <td>{{ restaurant.nom }}</td>
+                <td>{{ restaurant.adress }}</td>
+                <td>{{ restaurant.numTel }}</td>
+                <td>
+                    <a href="{{ path('restaurant_show', {'id': restaurant.id}) }}">show</a>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+     {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('restaurant_new') }}"  class="btn btn-dark right" >Ajouter un restaurant</a>
+            </div>
+     {% endif %}
+{% endblock %}
